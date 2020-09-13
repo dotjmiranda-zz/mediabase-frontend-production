@@ -77,7 +77,7 @@ module.exports = {
    ** Axios Proxy Config
    */
   proxy: {
-    "/api": "https://mediabase-backend.herokuapp.com:5000/",
+    "/api": "https://mediabase-backend.herokuapp.com/",
     "/API": "https://imdb-api.com/en/"
   },
   /*
