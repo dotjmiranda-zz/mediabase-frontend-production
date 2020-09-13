@@ -77,7 +77,7 @@ module.exports = {
    ** Axios Proxy Config
    */
   proxy: {
-    "/api": "http://192.168.1.89:3000/",
+    "/api": "http://localhost:3000/",
     "/API": "https://imdb-api.com/en/"
   },
   /*
