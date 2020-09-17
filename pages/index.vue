@@ -7,9 +7,10 @@
 
     <Header v-else title="Welcome to Mediabase"></Header>
 
-    <b-container>
+    <Spinner v-if="loading"></Spinner>
+
+    <b-container v-if="!loading">
       <div class="row">
-        <!-- <div class="col-12 col-md-6 col-lg-4 section"> -->
         <div class="col-12 section">
           <div class="row">
             <div class="col-12 section-content">
@@ -38,7 +39,8 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      welcomeMsg: "Welcome, "
+      welcomeMsg: "Welcome, ",
+      loading: true
     };
   },
   async fetch({ store }) {
@@ -49,7 +51,15 @@ export default {
       movies: state => state.movies.moviesTheater
     })
   },
-  mounted() {}
+  methods: {
+    isLoading() {
+      if (this.movies) this.loading = false;
+      else this.loading = true;
+    }
+  },
+  mounted() {
+    this.isLoading();
+  }
 };
 </script>
 

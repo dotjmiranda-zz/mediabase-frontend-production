@@ -6,9 +6,9 @@
           <div v class="row align-items-center">
             <div class="col-3 col-md-2 col-lg-1 text-center">
               <div class="post-avatar">
-                <b-avatar
-                  src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-                ></b-avatar>
+                <b-avatar v-if="!postUserProfile.avatar"></b-avatar>
+
+                <b-avatar v-else :src="postUserProfile.avatar"></b-avatar>
               </div>
             </div>
 
@@ -60,9 +60,10 @@
 
                 <b-dropdown-item
                   v-if="
-                    this.$auth.loggedIn &&
+                    (this.$auth.loggedIn &&
                       (this.$auth.user.id === post.user_id ||
-                        this.$auth.user.admin)
+                        this.$auth.user.admin)) ||
+                      this.$auth.user.moderator
                   "
                   @click="deletePost()"
                   >Delete</b-dropdown-item
@@ -75,7 +76,8 @@
                 v-if="
                   this.$auth.loggedIn &&
                     (this.$auth.user.id === post.user_id ||
-                      this.$auth.user.admin)
+                      this.$auth.user.admin ||
+                      this.$auth.user.moderator)
                 "
                 class="float-right"
                 pill
@@ -175,11 +177,16 @@ export default {
   async fetch({ store, route }) {
     await store.dispatch("forum/loadPost", route.query.id);
     await store.dispatch("forum/loadPostUser", store.state.forum.post.user_id);
+    await store.dispatch(
+      "user/loadProfile",
+      store.state.forum.postUser.username
+    );
   },
   computed: {
     ...mapState({
       post: state => state.forum.post,
-      postUser: state => state.forum.postUser
+      postUser: state => state.forum.postUser,
+      postUserProfile: state => state.user.profile
     })
   },
   methods: {

@@ -87,6 +87,55 @@
             </div>
           </div>
 
+          <!-- DIRECTORS -->
+          <div class="section">
+            <div class="row">
+              <div class="col-12">
+                <div class="section-title">Directors</div>
+
+                <div v-for="director in movie.directorList" :key="director.id">
+                  <b-link
+                    :to="{ name: 'people-id', params: { id: director.id } }"
+                  >
+                    {{ director.name }}
+                  </b-link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WRITERS -->
+          <div class="section">
+            <div class="row">
+              <div class="col-12">
+                <div class="section-title">Writers</div>
+
+                <div v-for="writer in movie.writerList" :key="writer.id">
+                  <b-link
+                    :to="{ name: 'people-id', params: { id: writer.id } }"
+                  >
+                    {{ writer.name }}
+                  </b-link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STARS -->
+          <div class="section">
+            <div class="row">
+              <div class="col-12">
+                <div class="section-title">Stars</div>
+
+                <div v-for="star in movie.starList" :key="star.id">
+                  <b-link :to="{ name: 'people-id', params: { id: star.id } }">
+                    {{ star.name }}
+                  </b-link>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="section">
             <div class="row align-items-center">
               <div class="col-6">
@@ -320,7 +369,7 @@ export default {
 }
 
 .movie-image {
-  width: 100%;
+  width: 60%;
   margin-top: 10px;
 }
 
@@ -343,6 +392,7 @@ export default {
   }
 
   .movie-image {
+    width: 100%;
     margin-top: 0;
   }
 }

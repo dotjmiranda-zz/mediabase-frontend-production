@@ -7,13 +7,7 @@
     </div>
 
     <div v-if="!loading">
-      <!-- <b-row align-h="center">
-        <b-col cols="2">
-          <b-pagination-nav align="center" :link-gen="linkGen" :number-of-pages="pagesNumber"></b-pagination-nav>
-        </b-col>
-      </b-row>-->
-
-      <b-container fluid v-if="!loading">
+      <b-container v-if="!loading">
         <div class="row">
           <div
             class="movie col-12 col-md-3"

@@ -89,6 +89,41 @@
             </div>
           </div>
 
+          <!-- DIRECTORS -->
+          <div class="section">
+            <div class="row">
+              <div class="col-12">
+                <div class="section-title">Creators</div>
+
+                <div
+                  v-for="creator in series.tvSeriesInfo.creatorList"
+                  :key="creator.id"
+                >
+                  <b-link
+                    :to="{ name: 'people-id', params: { id: creator.id } }"
+                  >
+                    {{ creator.name }}
+                  </b-link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STARS -->
+          <div class="section">
+            <div class="row">
+              <div class="col-12">
+                <div class="section-title">Stars</div>
+
+                <div v-for="star in series.starList" :key="star.id">
+                  <b-link :to="{ name: 'people-id', params: { id: star.id } }">
+                    {{ star.name }}
+                  </b-link>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="section">
             <div class="row align-items-center">
               <div class="col-6">

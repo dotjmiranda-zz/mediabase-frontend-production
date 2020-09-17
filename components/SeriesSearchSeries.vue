@@ -71,14 +71,19 @@ export default {
   height: 175px;
 }
 
-img {
-  width: 115px;
+.image {
+  max-width: 115px;
 }
 
 @media only screen and (min-width: 768px) {
   .series-card {
-    max-width: 300px;
-    height: 600px;
+    max-width: 235px;
+    height: 350px;
+  }
+
+  .image {
+    max-width: 235px;
+    max-height: 350px;
   }
 }
 </style>

@@ -1,9 +1,15 @@
 export const state = () => ({
   profile: [],
+  inputName: "",
+  selectedGender: null,
+  selectedBirthday: null,
+
   movielist: [],
   movielist_entry: null,
+
   serieslist: [],
   serieslist_entry: null,
+
   selectedStatus: 1,
   selectedScore: null
 });
@@ -11,6 +17,15 @@ export const state = () => ({
 export const mutations = {
   SET_PROFILE(state, profile) {
     state.profile = profile;
+  },
+  SET_NAME(state, name) {
+    state.inputName = name;
+  },
+  SET_GENDER(state, gender) {
+    state.selectedGender = gender;
+  },
+  SET_BIRTHDAY(state, birthday) {
+    state.selectedBirthday = birthday;
   },
   SET_MOVIELIST(state, movielist) {
     state.movielist = movielist;
@@ -40,6 +55,37 @@ export const actions = {
     let profile = response;
 
     commit("SET_PROFILE", profile);
+    if (profile.name) {
+      commit("SET_NAME", profile.name);
+    }
+    if (profile.gender) {
+      commit("SET_GENDER", profile.gender);
+    }
+    if (profile.birthday) {
+      commit("SET_BIRTHDAY", profile.birthday);
+    }
+  },
+  // UPDATE PROFILE
+  async updateProfile({ commit }, data) {
+    let formData = new FormData();
+
+    formData.append("name", data.name);
+    if (data.avatar) {
+      formData.append("avatar", data.avatar);
+    }
+    formData.append("gender", data.gender);
+    formData.append("birthday", data.birthday);
+
+    await this.$axios
+      .patch(`api/profiles/${data.username}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+      })
+      /* .then(response => {
+        commit("SET_PROFILE", response.data);
+      }) */
+      .catch(error => {
+        this.$toast.error("Unknown error has ocurred\n" + error);
+      });
   },
   // LOAD USER'S MOVIELIST
   async loadMovielist({ commit }, profileUsername, sort, sortDir) {
@@ -122,7 +168,7 @@ export const actions = {
 };
 
 export const getters = {
-  meanScore(state, getters) {
+  movieMeanScore(state, getters) {
     var sum = state.movielist.slice().reduce(function(a, b) {
       if (!isNaN(b.score)) {
         return a + b.score;
@@ -138,8 +184,30 @@ export const getters = {
   plannedMovies(state) {
     return state.movielist.slice().filter(movie => movie.status == 1);
   },
-  sortedByUpdateDate(state) {
+  moviesSortedByUpdate(state) {
     return state.movielist
+      .slice()
+      .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+  },
+
+  completedSeries(state) {
+    return state.serieslist.slice().filter(series => series.status == 2);
+  },
+  plannedSeries(state) {
+    return state.serieslist.slice().filter(series => series.status == 1);
+  },
+  seriesMeanScore(state, getters) {
+    var sum = state.serieslist.slice().reduce(function(a, b) {
+      if (!isNaN(b.score)) {
+        return a + b.score;
+      } else {
+        return a;
+      }
+    }, 0);
+    return (sum / getters.completedSeries.length).toFixed(2);
+  },
+  seriesSortedByUpdate(state) {
+    return state.serieslist
       .slice()
       .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
   }

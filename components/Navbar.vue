@@ -21,10 +21,12 @@
           <b-dropdown-item href="/top-series">Top Series</b-dropdown-item>
         </b-nav-item-dropdown>
 
-        <b-nav-item-dropdown text="Community">
+        <b-nav-item href="/forum">Forum</b-nav-item>
+
+        <!-- <b-nav-item-dropdown text="Community">
           <b-dropdown-item href="/forum">Forums</b-dropdown-item>
           <b-dropdown-item>Clubs</b-dropdown-item>
-        </b-nav-item-dropdown>
+        </b-nav-item-dropdown> -->
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto" v-if="!this.$auth.loggedIn">

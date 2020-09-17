@@ -24,7 +24,6 @@ export default {
           }
         })
         .then(() => {
-          //this.$router.go(-2);
           this.$toast.success("Successfully authenticated");
         })
         .catch(error => {

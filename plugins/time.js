@@ -5,6 +5,12 @@ export default (context, inject) => {
     return datetime.toLocaleString("en-GB");
   };
 
+  const format_date = date => {
+    var datetime = new Date(date);
+
+    return datetime.toLocaleString("en-GB");
+  };
+
   const time_diff = date => {
     var response = {
       dayFlag: false,

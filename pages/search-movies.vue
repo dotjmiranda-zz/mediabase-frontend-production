@@ -15,7 +15,7 @@
 
     <Spinner v-if="loading"></Spinner>
 
-    <b-container fluid v-if="!loading">
+    <b-container v-if="!loading">
       <div class="row">
         <div
           class="movie col-12 col-md-3"

@@ -40,7 +40,6 @@ export default {
 
 @media only screen and (min-width: 768px) {
   .board {
-    width: 60%;
     margin: 0 auto;
   }
 }
